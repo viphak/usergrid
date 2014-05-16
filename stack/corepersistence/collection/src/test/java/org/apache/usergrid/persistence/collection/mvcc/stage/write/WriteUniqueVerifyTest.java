@@ -18,22 +18,18 @@
 package org.apache.usergrid.persistence.collection.mvcc.stage.write;
 
 
-import org.jukito.UseModules;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import org.apache.usergrid.persistence.collection.CollectionScope;
-import org.apache.usergrid.persistence.collection.guice.MigrationManagerRule;
 import org.apache.usergrid.persistence.collection.guice.TestCollectionModule;
 import org.apache.usergrid.persistence.collection.mvcc.entity.MvccEntity;
 import org.apache.usergrid.persistence.collection.mvcc.stage.CollectionIoEvent;
 import org.apache.usergrid.persistence.collection.serialization.SerializationFig;
-import org.apache.usergrid.persistence.core.cassandra.CassandraRule;
-import org.apache.usergrid.persistence.core.cassandra.ITRunner;
 import org.apache.usergrid.persistence.model.entity.Entity;
 
+import com.google.guiceberry.junit4.GuiceBerryRule;
 import com.google.inject.Inject;
 
 import static org.apache.usergrid.persistence.collection.mvcc.stage.TestEntityGenerator.fromEntity;
@@ -42,17 +38,16 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
 
-@RunWith( ITRunner.class )
-@UseModules( TestCollectionModule.class )
+
 public class WriteUniqueVerifyTest {
+
+    @Rule
+    public GuiceBerryRule guiceBerry = new GuiceBerryRule(TestCollectionModule.class);
 
     @Inject
     private UniqueValueSerializationStrategy uvstrat;
 
 
-    @Inject
-    @Rule
-    public MigrationManagerRule migrationManagerRule;
 
 
 

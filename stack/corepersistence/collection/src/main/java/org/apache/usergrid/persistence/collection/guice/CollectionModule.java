@@ -30,7 +30,6 @@ import org.apache.usergrid.persistence.collection.mvcc.stage.write.UniqueValueSe
 import org.apache.usergrid.persistence.collection.serialization.SerializationFig;
 import org.apache.usergrid.persistence.collection.serialization.impl.SerializationModule;
 import org.apache.usergrid.persistence.collection.service.impl.ServiceModule;
-import org.apache.usergrid.persistence.core.guice.CommonModule;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
@@ -46,7 +45,6 @@ public class CollectionModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        install( new CommonModule());
         //noinspection unchecked
         install( new GuicyFigModule(
                 SerializationFig.class ) );

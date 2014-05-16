@@ -18,9 +18,6 @@
 package org.apache.usergrid.persistence.collection.mvcc.stage.write;
 
 
-import org.jukito.UseModules;
-
-import org.apache.usergrid.persistence.collection.guice.TestCollectionModule;
 import org.apache.usergrid.persistence.collection.mvcc.entity.MvccEntity;
 import org.apache.usergrid.persistence.collection.mvcc.stage.AbstractMvccEntityStageTest;
 import org.apache.usergrid.persistence.collection.mvcc.stage.CollectionIoEvent;
@@ -34,7 +31,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author tnine
  */
-@UseModules( TestCollectionModule.class )
+
 public class WriteUniqueVerifyStageTest extends AbstractMvccEntityStageTest {
 
     @Override

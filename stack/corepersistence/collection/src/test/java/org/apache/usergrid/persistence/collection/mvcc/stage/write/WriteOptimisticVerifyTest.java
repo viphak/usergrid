@@ -21,14 +21,12 @@ package org.apache.usergrid.persistence.collection.mvcc.stage.write;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jukito.UseModules;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.usergrid.persistence.collection.CollectionScope;
 import org.apache.usergrid.persistence.collection.exception.WriteOptimisticVerifyException;
-import org.apache.usergrid.persistence.collection.guice.TestCollectionModule;
 import org.apache.usergrid.persistence.collection.mvcc.MvccLogEntrySerializationStrategy;
 import org.apache.usergrid.persistence.collection.mvcc.entity.MvccEntity;
 import org.apache.usergrid.persistence.collection.mvcc.entity.MvccLogEntry;
@@ -53,7 +51,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@UseModules( TestCollectionModule.class )
+
 public class WriteOptimisticVerifyTest extends AbstractMvccEntityStageTest {
 
     private static final Logger log = LoggerFactory.getLogger(WriteOptimisticVerifyTest.class);

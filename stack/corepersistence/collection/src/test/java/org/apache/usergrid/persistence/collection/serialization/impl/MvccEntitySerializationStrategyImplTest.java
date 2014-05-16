@@ -6,19 +6,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.jukito.UseModules;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.safehaus.chop.api.IterationChop;
 import org.safehaus.guicyfig.Env;
 import org.safehaus.guicyfig.Option;
 import org.safehaus.guicyfig.Overrides;
 
 import org.apache.usergrid.persistence.collection.CollectionScope;
-import org.apache.usergrid.persistence.collection.guice.MigrationManagerRule;
 import org.apache.usergrid.persistence.collection.guice.TestCollectionModule;
 import org.apache.usergrid.persistence.collection.impl.CollectionScopeImpl;
 import org.apache.usergrid.persistence.collection.mvcc.MvccEntitySerializationStrategy;
@@ -28,8 +25,6 @@ import org.apache.usergrid.persistence.collection.serialization.SerializationFig
 import org.apache.usergrid.persistence.collection.util.EntityUtils;
 import org.apache.usergrid.persistence.core.astyanax.AstyanaxKeyspaceProvider;
 import org.apache.usergrid.persistence.core.astyanax.CassandraFig;
-import org.apache.usergrid.persistence.core.cassandra.CassandraRule;
-import org.apache.usergrid.persistence.core.cassandra.ITRunner;
 import org.apache.usergrid.persistence.core.migration.MigrationManagerFig;
 import org.apache.usergrid.persistence.model.entity.Entity;
 import org.apache.usergrid.persistence.model.entity.Id;
@@ -44,6 +39,7 @@ import org.apache.usergrid.persistence.model.field.UUIDField;
 import org.apache.usergrid.persistence.model.util.UUIDGenerator;
 
 import com.google.common.base.Optional;
+import com.google.guiceberry.junit4.GuiceBerryRule;
 import com.google.inject.Inject;
 import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 
@@ -57,22 +53,20 @@ import static org.mockito.Mockito.mock;
 
 /** @author tnine */
 @IterationChop( iterations = 1000, threads = 2 )
-@RunWith( ITRunner.class )
-@UseModules( TestCollectionModule.class )
 public class MvccEntitySerializationStrategyImplTest {
     /** Our RX I/O threads and this should have the same value */
     private static final String CONNECTION_COUNT = "20";
 
 
+    @Rule
+    public GuiceBerryRule guiceBerry = new GuiceBerryRule(TestCollectionModule.class);
+
     @Inject
     private MvccEntitySerializationStrategy serializationStrategy;
 
     @Inject
-    AstyanaxKeyspaceProvider provider;
+    private AstyanaxKeyspaceProvider provider;
 
-    @Inject
-    @Rule
-    public MigrationManagerRule migrationManagerRule;
 
     @Inject
     @Overrides(

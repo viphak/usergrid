@@ -19,10 +19,23 @@
 
 package org.apache.usergrid.persistence.collection.guice;
 
-public class TestCollectionModule extends TestModule {
+
+import org.apache.usergrid.persistence.core.guice.CommonModule;
+import org.apache.usergrid.persistence.core.guice.GuiceBerryITModule;
+
+import com.google.inject.AbstractModule;
+
+
+public class TestCollectionModule extends AbstractModule {
+
 
     @Override
     protected void configure() {
-        install(new CollectionModule());
+        install( new GuiceBerryITModule() );
+
+        install( new CommonModule() );
+        install( new CollectionModule() );
+
     }
+
 }

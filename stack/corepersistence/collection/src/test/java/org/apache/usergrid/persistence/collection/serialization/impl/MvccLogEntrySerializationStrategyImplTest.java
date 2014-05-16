@@ -4,26 +4,22 @@ package org.apache.usergrid.persistence.collection.serialization.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.jukito.UseModules;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import org.apache.usergrid.persistence.collection.CollectionScope;
-import org.apache.usergrid.persistence.collection.guice.MigrationManagerRule;
 import org.apache.usergrid.persistence.collection.guice.TestCollectionModule;
 import org.apache.usergrid.persistence.collection.impl.CollectionScopeImpl;
 import org.apache.usergrid.persistence.collection.mvcc.MvccLogEntrySerializationStrategy;
 import org.apache.usergrid.persistence.collection.mvcc.entity.MvccLogEntry;
 import org.apache.usergrid.persistence.collection.mvcc.entity.Stage;
 import org.apache.usergrid.persistence.collection.mvcc.entity.impl.MvccLogEntryImpl;
-import org.apache.usergrid.persistence.core.cassandra.CassandraRule;
-import org.apache.usergrid.persistence.core.cassandra.ITRunner;
 import org.apache.usergrid.persistence.model.entity.Id;
 import org.apache.usergrid.persistence.model.entity.SimpleId;
 import org.apache.usergrid.persistence.model.util.UUIDGenerator;
 
+import com.google.guiceberry.junit4.GuiceBerryRule;
 import com.google.inject.Inject;
 import com.netflix.astyanax.connectionpool.exceptions.ConnectionException;
 
@@ -34,16 +30,13 @@ import static org.mockito.Mockito.mock;
 
 
 /** @author tnine */
-@RunWith( ITRunner.class )
-@UseModules( TestCollectionModule.class )
 public class MvccLogEntrySerializationStrategyImplTest {
+
+    @Rule
+    public GuiceBerryRule guiceBerry = new GuiceBerryRule(TestCollectionModule.class);
 
     @Inject
     private MvccLogEntrySerializationStrategy logEntryStrategy;
-
-    @Inject
-    @Rule
-    public MigrationManagerRule migrationManagerRule;
 
 
     @Test

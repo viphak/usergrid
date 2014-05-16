@@ -21,21 +21,16 @@ package org.apache.usergrid.persistence.collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jukito.UseModules;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.time.StopWatch;
 
-import org.apache.usergrid.persistence.collection.guice.MigrationManagerRule;
 import org.apache.usergrid.persistence.collection.guice.TestCollectionModule;
 import org.apache.usergrid.persistence.collection.impl.CollectionScopeImpl;
-import org.apache.usergrid.persistence.core.cassandra.CassandraRule;
-import org.apache.usergrid.persistence.core.cassandra.ITRunner;
 import org.apache.usergrid.persistence.model.entity.Entity;
 import org.apache.usergrid.persistence.model.entity.Id;
 import org.apache.usergrid.persistence.model.entity.SimpleId;
@@ -43,23 +38,22 @@ import org.apache.usergrid.persistence.model.field.LocationField;
 import org.apache.usergrid.persistence.model.field.StringField;
 import org.apache.usergrid.persistence.model.field.value.Location;
 
+import com.google.guiceberry.junit4.GuiceBerryRule;
 import com.google.inject.Inject;
 
 import static org.junit.Assert.assertNotNull;
 
 
-@RunWith(ITRunner.class)
-@UseModules(TestCollectionModule.class)
+
 public class EntityCollectionManagerStressTest {
     private static final Logger log = LoggerFactory.getLogger( 
             EntityCollectionManagerStressTest.class );
 
+    @Rule
+    public GuiceBerryRule guiceBerry = new GuiceBerryRule(TestCollectionModule.class);
+
     @Inject
     private EntityCollectionManagerFactory factory;
-
-      @Inject
-    @Rule
-    public MigrationManagerRule migrationManagerRule;
 
     @Test
     public void writeThousands() {
